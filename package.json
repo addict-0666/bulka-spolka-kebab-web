@@ -1,0 +1,19 @@
+{
+  "name": "bulka-spolka-kebab-platform",
+  "version": "1.0.0",
+  "description": "Platforma do zamawiania kebabów kraftowych dla lokalu Bułka & Spółka Tychy z integracją płatności AutoPay",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "kebab",
+    "autopay",
+    "blik",
+    "food-ordering",
+    "ecommerce"
+  ],
+  "author": "Bułka & Spółka Kraft Food",
+  "license": "ISC"
+}

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kasa & Płatność AutoPay | Bułka & Spółka Kraft Food</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .checkout-box {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .form-control {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--accent-pink);
+    }
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .payment-option-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.8rem;
+      transition: all 0.2s;
+    }
+    .payment-option-card.active {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 210, 255, 0.08);
+      box-shadow: 0 0 15px var(--accent-cyan-glow);
+    }
+    .payment-logo-tag {
+      background: #fff;
+      color: #000;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .order-mini-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.88rem;
+    }
+    @media (max-width: 860px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="assets/media_1792720066453_7ae656cd.jpg" alt="Bułka & Spółka Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <h1>Bułka & Spółka</h1>
+          <span>Kraft Food • Kasa i Płatność</span>
+        </div>
+      </a>
+      <a href="index.html" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.9rem; font-weight: 600;">← Wróć do Menu</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2 style="font-size: 1.8rem; font-weight: 800;">Finalizacja Zamówienia</h2>
+    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+      Wybierz formę odbioru, wprowadź dane kontaktowe i zapłać bezpiecznie przez AutoPay.
+    </p>
+
+    <div class="checkout-layout">
+      <!-- LEWA STRONA: DANE KLIENTA I PŁATNOŚĆ -->
+      <form id="checkoutForm" class="checkout-box">
+        <h3 style="font-size: 1.15rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
+          <span>📍</span> 1. Sposób odbioru
+        </h3>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+          <label style="flex: 1; cursor: pointer;">
+            <input type="radio" name="deliveryType" value="delivery" checked style="display: none;">
+            <div id="btnTypeDelivery" class="option-pill selected" style="padding: 12px; text-align: center;">
+              🛵 Dostawa pod adres
+            </div>
+          </label>
+          <label style="flex: 1; cursor: pointer;">
+            <input type="radio" name="deliveryType" value="pickup" style="display: none;">
+            <div id="btnTypePickup" class="option-pill" style="padding: 12px; text-align: center;">
+              🛍️ Odbiór osobisty w lokalu
+            </div>
+          </label>
+        </div>
+
+        <h3 style="font-size: 1.15rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
+          <span>👤</span> 2. Dane do zamówienia
+        </h3>
+
+        <div class="row-2">
+          <div class="form-group">
+            <label>Imię i nazwisko *</label>
+            <input type="text" id="custName" class="form-control" required placeholder="Jan Kowalski">
+          </div>
+          <div class="form-group">
+            <label>Numer telefonu *</label>
+            <input type="tel" id="custPhone" class="form-control" required placeholder="+48 123 456 789">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Adres e-mail (do potwierdzenia i paragonu) *</label>
+          <input type="email" id="custEmail" class="form-control" required placeholder="jan.kowalski@example.com">
+        </div>
+
+        <div id="deliveryFields">
+          <div class="form-group">
+            <label>Ulica i numer budynku / lokalu *</label>
+            <input type="text" id="custAddress" class="form-control" placeholder="np. al. Bielska 15/4">
+          </div>
+          <div class="row-2">
+            <div class="form-group">
+              <label>Kod pocztowy</label>
+              <input type="text" id="custZip" class="form-control" value="43-100">
+            </div>
+            <div class="form-group">
+              <label>Miasto</label>
+              <input type="text" id="custCity" class="form-control" value="Tychy" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Komentarz dla dostawcy / kuchni (opcjonalnie)</label>
+          <input type="text" id="custNotes" class="form-control" placeholder="np. kod do domofonu 1234, proszę dzwonić...">
+        </div>
+
+        <h3 style="font-size: 1.15rem; margin: 1.8rem 0 1.2rem; display: flex; align-items: center; gap: 8px;">
+          <span>💳</span> 3. Bezpieczna płatność online
+        </h3>
+
+        <div class="payment-option-card active" data-channel="BLIK">
+          <input type="radio" name="paymentChannel" value="BLIK" checked style="accent-color: var(--accent-pink);">
+          <div style="flex-grow: 1;">
+            <div style="font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              <span class="payment-logo-tag" style="background:#000; color:#fff;">BLIK</span>
+              <span>Szybka płatność BLIK (AutoPay)</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Kod z aplikacji bankowej, natychmiastowa realizacja</div>
+          </div>
+        </div>
+
+        <div class="payment-option-card" data-channel="ALL">
+          <input type="radio" name="paymentChannel" value="ALL" style="accent-color: var(--accent-pink);">
+          <div style="flex-grow: 1;">
+            <div style="font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              <span class="payment-logo-tag" style="background:var(--accent-pink); color:#fff;">AutoPay</span>
+              <span>Przelew online / Karta / Google Pay</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Przekierowanie do pełnego panelu banków AutoPay S.A.</div>
+          </div>
+        </div>
+
+        <button type="submit" id="btnSubmitOrder" class="btn-checkout" style="width: 100%; margin-top: 1.5rem; font-size: 1.1rem; padding: 14px;">
+          <span id="submitBtnText">Zamawiam i płacę z AutoPay 🔒</span>
+        </button>
+
+        <p style="font-size: 0.72rem; color: var(--text-muted); text-align: center; margin-top: 0.8rem;">
+          🛡️ Transakcje są szyfrowane i zabezpieczone przez licencjonowaną krajową instytucję płatniczą <strong>AutoPay S.A.</strong> (KNF).
+        </p>
+      </form>
+
+      <!-- PRAWA STRONA: PODSUMOWANIE KOSZYKA -->
+      <div class="checkout-box" style="height: fit-content;">
+        <h3 style="font-size: 1.15rem; margin-bottom: 1.2rem;">Podsumowanie zamówienia</h3>
+        <div id="checkoutSummaryList">
+          <!-- Wypełniane przez JS -->
+        </div>
+
+        <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+          <div class="cart-summary-row">
+            <span>Produkty:</span>
+            <span id="summarySubtotal">0.00 zł</span>
+          </div>
+          <div class="cart-summary-row" style="margin: 0.4rem 0;">
+            <span>Dostawa:</span>
+            <span id="summaryDelivery">0.00 zł</span>
+          </div>
+          <div class="cart-summary-row total" style="margin-top: 0.6rem;">
+            <span>Razem do zapłaty:</span>
+            <span id="summaryTotal">0.00 zł</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { RESTAURANT_INFO } from './menu-data.js';
+
+    const cart = JSON.parse(localStorage.getItem('bulka_spolka_cart') || '[]');
+
+    if (cart.length === 0) {
+      alert('Twój koszyk jest pusty! Przekierowujemy do menu.');
+      window.location.href = 'index.html';
+    }
+
+    let isDelivery = true;
+
+    // Przełączanie Odbiór / Dostawa
+    const btnDelivery = document.getElementById('btnTypeDelivery');
+    const btnPickup = document.getElementById('btnTypePickup');
+    const deliveryFields = document.getElementById('deliveryFields');
+
+    btnDelivery.addEventListener('click', () => {
+      isDelivery = true;
+      btnDelivery.classList.add('selected');
+      btnPickup.classList.remove('selected');
+      deliveryFields.style.display = 'block';
+      document.getElementById('custAddress').required = true;
+      updateSummary();
+    });
+
+    btnPickup.addEventListener('click', () => {
+      isDelivery = false;
+      btnPickup.classList.add('selected');
+      btnDelivery.classList.remove('selected');
+      deliveryFields.style.display = 'none';
+      document.getElementById('custAddress').required = false;
+      updateSummary();
+    });
+
+    // Płatności
+    document.querySelectorAll('.payment-option-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.payment-option-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        const radio = card.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+      });
+    });
+
+    function updateSummary() {
+      const listEl = document.getElementById('checkoutSummaryList');
+      const subtotal = cart.reduce((acc, it) => acc + (it.price * it.quantity), 0);
+      const deliveryPrice = isDelivery 
+        ? (subtotal >= RESTAURANT_INFO.freeDeliveryThreshold ? 0 : RESTAURANT_INFO.deliveryPrice)
+        : 0;
+      const total = subtotal + deliveryPrice;
+
+      listEl.innerHTML = cart.map(it => `
+        <div class="order-mini-item">
+          <div>
+            <strong>${it.quantity}x ${it.name}</strong>
+            <div style="font-size: 0.72rem; color: var(--text-muted);">
+              ${it.sizeName ? it.sizeName + ' • ' : ''}${it.meatName || ''}
+            </div>
+          </div>
+          <span>${(it.price * it.quantity).toFixed(2)} zł</span>
+        </div>
+      `).join('');
+
+      document.getElementById('summarySubtotal').textContent = `${subtotal.toFixed(2)} zł`;
+      document.getElementById('summaryDelivery').textContent = deliveryPrice === 0 ? '0.00 zł (Darmowa)' : `${deliveryPrice.toFixed(2)} zł`;
+      document.getElementById('summaryTotal').textContent = `${total.toFixed(2)} zł`;
+      document.getElementById('submitBtnText').textContent = `Zapłać ${total.toFixed(2)} zł z AutoPay 🔒`;
+    }
+
+    updateSummary();
+
+    // WYSYŁKA ZAMÓWIENIA
+    document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = document.getElementById('btnSubmitOrder');
+      btn.disabled = true;
+      btn.textContent = 'Łączenie z bramką AutoPay... ⏳';
+
+      const subtotal = cart.reduce((acc, it) => acc + (it.price * it.quantity), 0);
+      const deliveryPrice = isDelivery 
+        ? (subtotal >= RESTAURANT_INFO.freeDeliveryThreshold ? 0 : RESTAURANT_INFO.deliveryPrice)
+        : 0;
+      const totalAmount = subtotal + deliveryPrice;
+
+      const orderPayload = {
+        deliveryType: isDelivery ? 'delivery' : 'pickup',
+        customer: {
+          name: document.getElementById('custName').value,
+          phone: document.getElementById('custPhone').value,
+          email: document.getElementById('custEmail').value,
+          address: isDelivery ? document.getElementById('custAddress').value : 'Odbiór osobisty',
+          zip: isDelivery ? document.getElementById('custZip').value : '',
+          city: 'Tychy',
+          notes: document.getElementById('custNotes').value
+        },
+        items: cart,
+        totalAmount: totalAmount,
+        channel: document.querySelector('input[name="paymentChannel"]:checked').value
+      };
+
+      try {
+        const response = await fetch('/api/orders/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderPayload)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Wyczyszczenie koszyka
+          localStorage.removeItem('bulka_spolka_cart');
+
+          // Sprawdzamy czy mamy skonfigurowaną bramkę produkcyjną AutoPay, czy działamy w sandboxie / symulatorze
+          const cfgRes = await fetch('/api/config');
+          const config = await cfgRes.json();
+
+          if (config.isConfigured) {
+            // Przekierowanie / formularz POST do oficjalnej bramki AutoPay
+            submitAutoPayForm(data.paymentPayload);
+          } else {
+            // Przekierowanie do symulatora AutoPay (do testów lokalnych i weryfikacji przepływu)
+            window.location.href = data.simulatorUrl;
+          }
+        } else {
+          alert('Błąd: ' + (data.error || 'Nie udało się złożyć zamówienia'));
+          btn.disabled = false;
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Wystąpił problem z połączeniem z serwerem.');
+        btn.disabled = false;
+      }
+    });
+
+    // Funkcja dynamicznego tworzenia formularza POST do AutoPay
+    function submitAutoPayForm(payload) {
+      const form = document.createElement('form');
+      form.method = payload.method || 'POST';
+      form.action = payload.actionUrl;
+
+      for (const [key, val] of Object.entries(payload.params)) {
+        if (val !== undefined && val !== null) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = val;
+          form.appendChild(input);
+        }
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+  </script>
+</body>
+</html>

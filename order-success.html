@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zamówienie Potwierdzone! | Bułka & Spółka Kraft Food</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .success-container {
+      max-width: 650px;
+      margin: 3rem auto;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-neon);
+    }
+    .check-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 2px solid #34d399;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 1.5rem;
+    }
+    .status-badge-paid {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .order-details-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: left;
+      margin: 1.5rem 0;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      font-size: 0.9rem;
+    }
+    .info-row strong {
+      color: var(--text-main);
+    }
+    .info-row span {
+      color: var(--text-muted);
+    }
+    /* STAMPSTAMP LOYALTY CARD */
+    .stampstamp-card {
+      background: linear-gradient(135deg, rgba(255, 19, 118, 0.12) 0%, rgba(0, 210, 255, 0.12) 100%);
+      border: 2px solid var(--accent-pink);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 1.8rem 0;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 19, 118, 0.2);
+    }
+    .stamp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gradient-neon);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .qr-stamp-wrapper {
+      background: #ffffff;
+      padding: 14px;
+      border-radius: 12px;
+      display: inline-block;
+      margin: 1rem 0;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+    .qr-stamp-wrapper img {
+      width: 170px;
+      height: 170px;
+      display: block;
+    }
+    .wallets-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .wallet-chip {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="assets/media_1792720066453_7ae656cd.jpg" alt="Bułka & Spółka Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <h1>Bułka & Spółka</h1>
+          <span>Kraft Food • Kebab Tychy</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="success-container">
+      <div class="check-icon">✓</div>
+      <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">Dziękujemy za zamówienie!</h2>
+      <div class="status-badge-paid">Płatność AutoPay Opłacona (Status: PAID)</div>
+      
+      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+        Twoje zamówienie trafiło prosto na naszą kuchnię! Już zaczynamy kroić świeże płaty kraftowego mięsa i przygotowywać Twoje ulubione dania.
+      </p>
+
+      <div class="order-details-card">
+        <div class="info-row">
+          <span>Numer zamówienia:</span>
+          <strong id="detOrderId" style="color: var(--neon-yellow);">-</strong>
+        </div>
+        <div class="info-row">
+          <span>Status realizacji:</span>
+          <strong id="detStatusLabel" style="color: #34d399;">Przyjęte do realizacji</strong>
+        </div>
+        <div class="info-row" id="detEstTimeRow" style="background: rgba(229,106,24,0.15); padding: 8px 12px; border-radius: 6px; margin: 8px 0; border: 1px solid rgba(229,106,24,0.3);">
+          <span style="color: #ff9800; font-weight: 600;">Szacowany czas realizacji:</span>
+          <strong id="detEstTime" style="color: #ffb74d; font-size: 1rem;">Oczekiwanie na potwierdzenie kuchni...</strong>
+        </div>
+        <div class="info-row">
+          <span>Sposób odbioru:</span>
+          <strong id="detDeliveryType">-</strong>
+        </div>
+        <div class="info-row">
+          <span>Dane klienta:</span>
+          <strong id="detCustomer">-</strong>
+        </div>
+        <div class="info-row">
+          <span>Kwota transakcji:</span>
+          <strong id="detTotal" style="font-size: 1.1rem; color: var(--accent-cyan);">-</strong>
+        </div>
+
+        <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.8rem;">
+          <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">Zamówione pozycje:</div>
+          <div id="detItemsList"></div>
+        </div>
+      </div>
+
+      <!-- KARTA LOJALNOŚCIOWA STAMPSTAMP -->
+      <div class="stampstamp-card" id="stampstampBlock">
+        <div class="stamp-badge">🎁 Program Lojalnościowy Bułka & Spółka</div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff;">Odbierz swoją pieczątkę za to zamówienie!</h3>
+        <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 4px; max-width: 480px; margin-inline: auto;">
+          Zeskanuj poniższy kod QR aparatem w telefonie, aby dodać cyfrową kartę pieczątkową bezpośrednio do swojego telefonu i odebrać punkt.
+        </p>
+
+        <div class="qr-stamp-wrapper">
+          <img id="stampQrImg" src="" alt="Kod QR StampStamp">
+        </div>
+
+        <div>
+          <a id="stampDirectLink" href="#" target="_blank" class="btn-select" style="display: inline-flex; margin-bottom: 0.5rem; text-decoration: none;">
+            <span>Otwórz kartę StampStamp w telefonie 📲</span>
+          </a>
+        </div>
+
+        <div class="wallets-row">
+          <span>Działa bezpośrednio w:</span>
+          <span class="wallet-chip">🍏 Apple Wallet</span>
+          <span class="wallet-chip">🤖 Google Wallet</span>
+        </div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.6rem;">
+          Zbierz 10 pieczątek i zgarnij darmowego kraftowego kebaba! 🥙
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <a href="index.html" class="btn-checkout" style="padding: 10px 24px; font-size: 0.95rem;">
+          Wróć do strony głównej
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('orderId');
+
+    // Inicjalizacja kodu QR StampStamp z numerem zamówienia
+    if (orderId) {
+      // Adres docelowy odbierania pieczątki z kampanii lokalu w StampStamp
+      // Klient może podpiąć swój unikalny token kampanii np. https://c.stampstamp.pl/card/bulka-spolka?order=ORD-...
+      const stampBaseUrl = 'https://c.stampstamp.pl/card/bulka-spolka';
+      const stampOrderUrl = `${stampBaseUrl}?orderId=${encodeURIComponent(orderId)}`;
+
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(stampOrderUrl)}`;
+      
+      const stampImg = document.getElementById('stampQrImg');
+      const directBtn = document.getElementById('stampDirectLink');
+      if (stampImg) stampImg.src = qrApiUrl;
+      if (directBtn) directBtn.href = stampOrderUrl;
+    }
+
+    function refreshOrderStatus() {
+      if (!orderId) return;
+      fetch('/api/orders/' + orderId)
+        .then(r => r.json())
+        .then(order => {
+          if (order && !order.error) {
+            document.getElementById('detDeliveryType').textContent = order.deliveryType === 'delivery' 
+              ? `🛵 Dostawa na adres: ${order.customer.address || ''}, ${order.customer.city || ''}`
+              : '🛍️ Odbiór osobisty w lokalu w Tychach';
+
+            document.getElementById('detCustomer').textContent = `${order.customer.name} (${order.customer.phone})`;
+            document.getElementById('detTotal').textContent = `${Number(order.totalAmount).toFixed(2)} zł`;
+
+            // Status
+            const statusEl = document.getElementById('detStatusLabel');
+            const estRow = document.getElementById('detEstTimeRow');
+            const estEl = document.getElementById('detEstTime');
+
+            if (order.status === 'CANCELLED') {
+              statusEl.textContent = 'ANULOWANE PRZEZ LOKAL';
+              statusEl.style.color = '#ef4444';
+              estRow.style.background = 'rgba(239, 68, 68, 0.2)';
+              estRow.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+              estEl.style.color = '#fca5a5';
+              estEl.textContent = order.cancelReason ? `Powód: ${order.cancelReason}` : 'Brak możliwości realizacji';
+            } else if (order.status === 'READY') {
+              statusEl.textContent = 'GOTOWE DO ODBIORU / WYDANE KURIEROWI';
+              statusEl.style.color = '#22c55e';
+              estEl.textContent = 'Twoje zamówienie czeka na odbiór!';
+            } else if (order.status === 'COMPLETED') {
+              statusEl.textContent = 'ZREALIZOWANE / ODEBRANE';
+              statusEl.style.color = '#94a3b8';
+              estEl.textContent = 'Smacznego!';
+            } else {
+              statusEl.textContent = order.status === 'PREPARING' ? 'W trakcie przygotowania na kuchni' : 'Przyjęte do realizacji';
+              if (order.estimatedMinutes) {
+                const estDate = order.estimatedReadyAt ? new Date(order.estimatedReadyAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '';
+                estEl.textContent = `ok. ${order.estimatedMinutes} minut ${estDate ? '(godz. ' + estDate + ')' : ''}`;
+              } else {
+                estEl.textContent = 'Kuchnia właśnie wyznacza czas...';
+              }
+            }
+
+            const listEl = document.getElementById('detItemsList');
+            if (listEl && (!listEl.children || listEl.children.length === 0)) {
+              listEl.innerHTML = order.items.map(it => `
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; color: var(--text-muted);">
+                  <span>${it.quantity}x ${it.name || it.title} ${it.meatName ? '(' + it.meatName + ')' : ''}</span>
+                  <span style="color: #fff;">${(it.price * it.quantity).toFixed(2)} zł</span>
+                </div>
+              `).join('');
+            }
+          }
+        })
+        .catch(console.error);
+    }
+
+    if (orderId) {
+      document.getElementById('detOrderId').textContent = '#' + orderId;
+      refreshOrderStatus();
+      // Odpytuj co 4 sekundy, by klient widział na żywo czas ustalony przez kucharza
+      setInterval(refreshOrderStatus, 4000);
+    }
+  </script>
+</body>
+</html>
